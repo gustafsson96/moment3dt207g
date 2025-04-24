@@ -14,24 +14,53 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch((err) => console.error('Connection error:', err));
-  
-  // Routes placeholder
-  app.get('/', (req, res) => {
-    res.send('API is running');
-  });
+    .then(() => console.log('Connected to MongoDB Atlas'))
+    .catch((err) => console.error('Connection error:', err));
 
-// Test
-const testSchema = new mongoose.Schema({ name: String });
-const Test = mongoose.model('Test', testSchema);
-
-app.post('/test', async (req, res) => {
-  const doc = new Test({ name: req.body.name });
-  await doc.save();
-  res.send('Saved!');
+// Work Experience schema
+const workExperienceSchema = new mongoose.Schema({
+    company: {
+        type: String,
+        required: true
+    },
+    job_title: {
+        type: String,
+        required: true
+    },
+    start_date: {
+        type: Date,
+        required: true
+    },
+    end_date: {
+        type: Date,
+        required: false
+    }
 });
-  
-  app.listen(PORT, () => {
+
+const WorkExperience = mongoose.model('WorkExperience', workExperienceSchema);
+
+
+// Route to collect work experience data
+app.get("/work_experience", async (req, res) => {
+    try {
+        let result = await WorkExperience.find({});
+        return res.json(result);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+});
+
+// Route to add a new work experience 
+app.post('/work_experience', async (req, res) => {
+    try {
+        const newEntry = new WorkExperience(req.body);
+        const savedEntry = await newEntry.save();
+        res.status(201).json(savedEntry);
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+});
+
+app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-  });
+});
