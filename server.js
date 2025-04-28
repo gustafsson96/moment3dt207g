@@ -62,7 +62,7 @@ app.post('/work_experience', async (req, res) => {
 });
 
 // Route to update a work experience
-app.put('/work_experience:id', async (req, res) => {
+app.put('/work_experience/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const updatedWorkExperience = await WorkExperience.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
