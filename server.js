@@ -21,15 +21,15 @@ mongoose.connect(process.env.MONGODB_URI)
 const workExperienceSchema = new mongoose.Schema({
     company: {
         type: String,
-        required: true
+        required: [true, "Company name is required"]
     },
     job_title: {
         type: String,
-        required: true
+        required: [true, "Job title is required"]
     },
     start_date: {
         type: Date,
-        required: true
+        required: [true, "Start date is required"]
     },
     end_date: {
         type: Date,
@@ -53,11 +53,34 @@ app.get("/work_experience", async (req, res) => {
 // Route to add a new work experience 
 app.post('/work_experience', async (req, res) => {
     try {
-        const newEntry = new WorkExperience(req.body);
-        const savedEntry = await newEntry.save();
-        res.status(201).json(savedEntry);
+        const newWorkExperience = new WorkExperience(req.body);
+        const savedWorkExperience = await newWorkExperience.save();
+        res.status(201).json(savedWorkExperience);
     } catch (error) {
         return res.status(400).json(error);
+    }
+});
+
+// Route to update a work experience
+app.put('/work_experience:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedWorkExperience = await WorkExperience.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+        if (!updatedWorkExperience) {
+            return res.status(404).json({ message: "Work experience not found" });
+        }
+        res.json(updatedWorkExperience);
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+});
+
+// Route to delete a work experience
+app.delete('/work_experience', async (req, res) => {
+    try {
+
+    } catch {
+
     }
 });
 
