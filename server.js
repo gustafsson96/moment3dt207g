@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
 
 dotenv.config();
 
@@ -39,6 +40,11 @@ const workExperienceSchema = new mongoose.Schema({
 
 const WorkExperience = mongoose.model('WorkExperience', workExperienceSchema);
 
+// Routing 
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the Work Experience API!');
+});
 
 // Route to collect work experience data
 app.get("/work_experience", async (req, res) => {
