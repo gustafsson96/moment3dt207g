@@ -76,11 +76,16 @@ app.put('/work_experience/:id', async (req, res) => {
 });
 
 // Route to delete a work experience
-app.delete('/work_experience', async (req, res) => {
+app.delete('/work_experience/:id', async (req, res) => {
     try {
-
-    } catch {
-
+        const { id } = req.params;
+        const deletedWorkExperience = await WorkExperience.findByIdAndDelete(id);
+        if (!deletedWorkExperience) {
+            return res.status(404).json({ message: "Work experience not found" });
+        }
+        res.json({ message: 'Work experience deleted successfully' });
+    } catch (error) {
+        return res.status(400).json(error);
     }
 });
 
