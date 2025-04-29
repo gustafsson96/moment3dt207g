@@ -1,12 +1,12 @@
 # Moment 3 DT207G Part 1
 
-This project makes up the first part of my contribution for Moment 3 - NoSQL-DATABASER in the course Backend-baserad webbutveckling (DT207G) at Mittuniversitetet, Sundsvall. 
+This project makes up the first part of my contribution for Moment 3 - NoSQL-databaser in the course Backend-baserad webbutveckling (DT207G) at Mittuniversitetet, Sundsvall. 
 
 This is a simple REST API for managing work experience data built with Node.js, Express, MongoDB Atlas, and Mongoose. 
 
 ## Installation
 
-This API uses MongoDB Atlas for remote database storage. To install, follow these steps:
+To install, follow these steps:
 
 1. Clone the repository: git clone https://github.com/gustafsson96/moment3dt207g.git
 2. Navigate into the project folder: cd your-project-folder-name
@@ -23,7 +23,7 @@ This API uses MongoDB Atlas for remote database storage. To install, follow thes
 This API uses a NoSQL MongoDB database and is hosted on MongoDB Atlas. 
 
 ### Database Structure
-The API manages a WorkExperience collection with the following fields, stored in BSON format in MongoDB but returned in JSON format via the API. 
+The API manages a WorkExperience collection with the following fields, stored in BSON format in MongoDB and returned in JSON format via the API. 
 
 | Field Name     | Data Type            | Description                   | Required |
 |-----------------|---------------------|-------------------------------|----------|
@@ -32,7 +32,7 @@ The API manages a WorkExperience collection with the following fields, stored in
 | start_date      | Date                | Employment start date         | Yes      | 
 | end_date        | Date                | Employment end date (if any)  | No       | 
 
-Example of a stored document in the work_experience collection as appeard in MongoDB Atlas: 
+Example of a stored document in the work_experience collection as appeard in MongoDB Atlas: <br>
 { <br>
     _id: ObjectId('680f4f31d0b20923c73e380c')
     company: "Company name"<br>
